@@ -5,13 +5,41 @@ import { useSelector } from "react-redux";
 import { selectSearchQuery } from "../redux/Selectors";
 
 const ProductList = () => {
-  const { data: products, loading } = useFetchProducts("https://dummyjson.com/products?limit=100");
+  const { data: products, loading, error } = useFetchProducts("https://dummyjson.com/products?limit=100");
   const searchQuery = useSelector(selectSearchQuery);
 
-  if (loading || !products) {
+  if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <p className="text-gray-400 text-sm">Loading products...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
+        <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center">
+          <svg className="w-9 h-9 text-rose-500" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+          </svg>
+        </div>
+        <h2 className="text-lg font-bold text-gray-700">Failed to load products</h2>
+        <p className="text-sm text-gray-500">{error}</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="mt-2 px-5 py-2 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
+
+  if (!products) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-gray-400 text-sm">No products available</p>
       </div>
     );
   }
