@@ -1,9 +1,15 @@
 import {Link} from "react-router-dom"
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectTotalQuantity } from "../redux/Selectors";
+import { setSearchQuery } from "../redux/SearchSlice";
 
 const Header = () => {
-  const cartItemCount = useSelector(selectTotalQuantity); 
+  const dispatch = useDispatch();
+  const cartItemCount = useSelector(selectTotalQuantity);
+
+  const handleSearchChange = (e) => {
+    dispatch(setSearchQuery(e.target.value));
+  }; 
 
   const navLinks = [
     { label: "Home",     href: "/" },
@@ -36,6 +42,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search products…"
+                onChange={handleSearchChange}
                 className="w-full pl-4 pr-10 py-2 text-sm border border-gray-200 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition"
               />
               <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition">
@@ -98,6 +105,7 @@ const Header = () => {
             <input
               type="text"
               placeholder="Search products…"
+              onChange={handleSearchChange}
               className="w-full pl-4 pr-10 py-2 text-sm border border-gray-200 rounded-full bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition"
             />
             <button className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-emerald-600 transition">

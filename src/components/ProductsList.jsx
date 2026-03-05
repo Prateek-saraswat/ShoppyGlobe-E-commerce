@@ -1,9 +1,12 @@
 
 import ProductItem from "./ProductItem";
 import useFetchProducts from "../hooks/useFetchProduct";
+import { useSelector } from "react-redux";
+import { selectSearchQuery } from "../redux/Selectors";
 
 const ProductList = () => {
   const { data: products, loading } = useFetchProducts("https://dummyjson.com/products?limit=100");
+  const searchQuery = useSelector(selectSearchQuery);
 
   if (loading || !products) {
     return (
@@ -13,10 +16,9 @@ const ProductList = () => {
     );
   }
 
-  const searchQuery = "";
-
   const filteredProducts = products.filter((p) =>
-    p.title.toLowerCase().includes(searchQuery.toLowerCase())
+    p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.description.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
