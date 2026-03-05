@@ -1,20 +1,41 @@
-
-
-import useFetchProducts from "../hooks/useFetchProduct";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 
 const ProductDetails = () => {
-
-  //destructuring id from useParams
   const { id } = useParams();
   const dispatch = useDispatch();
+  
+  // State for storing product data
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch single product using custom hook and takifn id from params
-  const { data: product, loading, error } = useFetchProducts(
-    `https://dummyjson.com/products/${id}`
-  );
+  // Fetch product details when component mounts and when id changes
+  useEffect(() => {
+    async function fetchProductDetails() {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`https://dummyjson.com/products/${id}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setProduct(data);
+      } catch (err) {
+        console.error("Error fetching product:", err);
+        setError(err.message || "Failed to fetch product");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProductDetails();
+  }, [id]);
 
   if (loading) {
     return (
@@ -24,7 +45,6 @@ const ProductDetails = () => {
     );
   }
 
-  //conditional rendering 
   if (error) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
@@ -56,7 +76,6 @@ const ProductDetails = () => {
   const handleAddToCart = () => {
     dispatch(addToCart(product));
   };
-
 
   return (
     <main className="min-h-screen bg-gray-50 py-8">
@@ -120,10 +139,6 @@ const ProductDetails = () => {
             </button>
           </div>
         </div>
-
-        
-
-       
 
       </div>
     </main>
