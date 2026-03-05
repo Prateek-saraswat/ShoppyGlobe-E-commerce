@@ -18,12 +18,8 @@ const CheckoutPage = () => {
     phone: '',
     address: '',
     city: '',
-    zipCode: '',
-    paymentMethod: 'cod'
+    zipCode: ''
   });
-
-  const shippingFee = subtotal > 50 ? 0 : 4.99;
-  const grandTotal = (parseFloat(subtotal) + shippingFee).toFixed(2);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -168,46 +164,6 @@ const CheckoutPage = () => {
                 </div>
               </div>
 
-              <h2 className="text-lg font-bold text-gray-800 mt-6 mb-4">Payment Method</h2>
-              
-              <div className="space-y-3">
-                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="cod"
-                    checked={formData.paymentMethod === 'cod'}
-                    onChange={handleInputChange}
-                    className="text-emerald-600 focus:ring-emerald-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">Cash on Delivery</span>
-                </label>
-
-                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="card"
-                    checked={formData.paymentMethod === 'card'}
-                    onChange={handleInputChange}
-                    className="text-emerald-600 focus:ring-emerald-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">Credit/Debit Card</span>
-                </label>
-
-                <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50">
-                  <input
-                    type="radio"
-                    name="paymentMethod"
-                    value="upi"
-                    checked={formData.paymentMethod === 'upi'}
-                    onChange={handleInputChange}
-                    className="text-emerald-600 focus:ring-emerald-500"
-                  />
-                  <span className="text-sm font-medium text-gray-700">UPI</span>
-                </label>
-              </div>
-
               <button
                 type="submit"
                 className="mt-6 w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-emerald-100"
@@ -251,16 +207,9 @@ const CheckoutPage = () => {
                   <span className="font-semibold text-gray-800">${subtotal}</span>
                 </div>
 
-                <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className={`font-semibold ${shippingFee === 0 ? "text-emerald-600" : "text-gray-800"}`}>
-                    {shippingFee === 0 ? "FREE" : `$${shippingFee}`}
-                  </span>
-                </div>
-
                 <div className="border-t border-gray-100 pt-3 flex justify-between">
-                  <span className="font-bold text-gray-900">Grand Total</span>
-                  <span className="font-black text-gray-900 text-base">${grandTotal}</span>
+                  <span className="font-bold text-gray-900">Total</span>
+                  <span className="font-black text-gray-900 text-base">${subtotal}</span>
                 </div>
               </div>
             </div>

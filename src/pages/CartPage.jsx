@@ -10,9 +10,6 @@ const CartPage = () => {
   const subtotal = useSelector(selectCartTotal);
   const totalItems = useSelector(selectTotalQuantity);
 
-  const shippingFee = subtotal > 50 ? 0 : 4.99;
-  const grandTotal = (parseFloat(subtotal) + shippingFee).toFixed(2);
-
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,25 +72,21 @@ const CartPage = () => {
                     <span className="font-semibold text-gray-800">${subtotal}</span>
                   </div>
 
-
-                  
-
                   <div className="border-t border-gray-100 pt-3 flex justify-between">
-                    <span className="font-bold text-gray-900">Grand Total</span>
+                    <span className="font-bold text-gray-900">Total</span>
                     <span className="font-black text-gray-900 text-base">${subtotal}</span>
                   </div>
                 </div>
 
-                <button
+                <Link
+                  to="/checkout"
                   className="mt-5 w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-emerald-100"
                 >
                   Proceed to Checkout
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
-                </button>
-
-               
+                </Link>
 
                 <button
                   onClick={() => dispatch(clearCart())}
