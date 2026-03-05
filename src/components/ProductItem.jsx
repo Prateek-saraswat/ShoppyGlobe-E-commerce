@@ -2,9 +2,12 @@ import {Link} from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { addToCart } from "../redux/cartSlice"
 
+
+//component for showing product card in Product list Component
 const ProductItem = ({product}) => {
   const dispatch = useDispatch()
 
+  //adding cart functinality when clicking add to cart 
   const handleAddToCart = (e) => {
     e.preventDefault()
     e.stopPropagation()
@@ -48,7 +51,6 @@ const ProductItem = ({product}) => {
 
         
 
-        {/* Price row */}
         <div className="flex items-end gap-2">
           <span className="text-sm text-gray-400  mb-0.5">
             ${product.price}
