@@ -16,7 +16,7 @@ const ProductItem = ({product}) => {
 
   return (
     <Link to={`/products/${product.id}`}>
-    <div className="w-72 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
+    <div className="w-full sm:w-72 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
 
       <div className="relative bg-gray-50 h-52 flex items-center justify-center p-4">
         

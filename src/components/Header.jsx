@@ -1,4 +1,5 @@
-import {Link} from "react-router-dom"
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectTotalQuantity } from "../redux/Selectors";
 import { setSearchQuery } from "../redux/SearchSlice";
@@ -6,27 +7,27 @@ import { setSearchQuery } from "../redux/SearchSlice";
 const Header = () => {
   const dispatch = useDispatch();
   const cartItemCount = useSelector(selectTotalQuantity);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleSearchChange = (e) => {
     dispatch(setSearchQuery(e.target.value));
   }; 
 
-  //creating array for making two nav links in header 
-  const navLinks = [
-    { label: "Home",     href: "/" },
-    { label: "Cart", href: "/cart" },
-    
-  ];
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="w-full sticky top-0 z-50 bg-white shadow-md">
 
-     
-
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
 
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+          <Link to="/" className="flex items-center gap-2 flex-shrink-0" onClick={closeMobileMenu}>
             <div className="w-9 h-9 bg-emerald-600 rounded-xl flex items-center justify-center shadow-lg shadow-emerald-200">
               <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round"
@@ -55,21 +56,26 @@ const Header = () => {
           </div>
 
           <ul className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  to={link.href}
-                  className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <Link
+                to="/"
+                className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/cart"
+                className="px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
+              >
+                Cart
+              </Link>
+            </li>
           </ul>
 
           <div className="flex items-center gap-2">
 
-        
             <Link
               to="/cart"
               className="relative flex items-center justify-center w-9 h-9 rounded-full text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
@@ -85,14 +91,24 @@ const Header = () => {
               )}
             </Link>
 
-            <button className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:bg-gray-100 transition">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>
+            <button 
+              onClick={toggleMobileMenu}
+              className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:bg-gray-100 transition"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
 
+        {/* Mobile Search */}
         <div className="md:hidden pb-3">
           <div className="relative w-full">
             <input
@@ -108,6 +124,32 @@ const Header = () => {
             </button>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden pb-4 border-t border-gray-100 pt-2">
+            <ul className="flex flex-col gap-1">
+              <li>
+                <Link
+                  to="/"
+                  onClick={closeMobileMenu}
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
+                >
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/cart"
+                  onClick={closeMobileMenu}
+                  className="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
+                >
+                  Cart ({cartItemCount})
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
 
     </header>
