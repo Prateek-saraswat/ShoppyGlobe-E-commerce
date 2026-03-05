@@ -23,6 +23,7 @@ const ProductItem = ({product}) => {
           src={product.thumbnail}
           alt={product.title}
           className="h-full object-contain mix-blend-multiply"
+          loading="lazy"
         />
       </div>
 

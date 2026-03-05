@@ -66,6 +66,7 @@ const ProductDetails = () => {
               src={product.thumbnail}
               alt={product.title}
               className="h-full object-contain"
+              loading="lazy"
             />
           </div>
 
