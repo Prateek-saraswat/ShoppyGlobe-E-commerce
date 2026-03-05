@@ -73,10 +73,3 @@ src/
 - `/cart` - Shopping Cart
 - `/checkout` - Checkout
 
-## GitHub Repository
-
-[Link to GitHub Repository]
-
-## License
-
-MIT
