@@ -1,7 +1,9 @@
 import {Link} from "react-router-dom"
+import { useSelector } from "react-redux";
+import { selectTotalQuantity } from "../redux/Selectors";
 
 const Header = () => {
-  const cartItemCount = 3; 
+  const cartItemCount = useSelector(selectTotalQuantity); 
 
   const navLinks = [
     { label: "Home",     href: "/" },
@@ -68,8 +70,8 @@ const Header = () => {
               </svg>
             </button>
 
-            <a
-              href="/cart"
+            <Link
+              to="/cart"
               className="relative flex items-center justify-center w-9 h-9 rounded-full text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 transition"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -81,7 +83,7 @@ const Header = () => {
                   {cartItemCount}
                 </span>
               )}
-            </a>
+            </Link>
 
             <button className="lg:hidden flex items-center justify-center w-9 h-9 rounded-full text-gray-500 hover:bg-gray-100 transition">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

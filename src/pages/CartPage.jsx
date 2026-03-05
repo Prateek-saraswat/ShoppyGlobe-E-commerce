@@ -1,48 +1,14 @@
-
-
-import CartItem from "./CartItem";
-
-const demoCartItems = [
-  {
-    id: 23,
-    title: "Eggs",
-    category: "groceries",
-    price: 2.99,
-    discountPercentage: 11.05,
-    quantity: 2,
-    thumbnail: "https://cdn.dummyjson.com/product-images/groceries/eggs/thumbnail.webp",
-  },
-  {
-    id: 1,
-    title: "Essence Mascara Lash Princess",
-    category: "beauty",
-    price: 9.99,
-    discountPercentage: 10.48,
-    quantity: 1,
-    thumbnail: "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
-  },
-  {
-    id: 6,
-    title: "Calvin Klein CK One",
-    category: "fragrances",
-    price: 49.99,
-    discountPercentage: 0.34,
-    quantity: 1,
-    thumbnail: "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/thumbnail.webp",
-  },
-];
+import { useSelector, useDispatch } from 'react-redux';
+import CartItem from '../components/CartItem.jsx';
+import { selectCartItems, selectCartTotal, selectTotalQuantity } from '../redux/Selectors';
+import { clearCart } from '../redux/cartSlice';
+import { Link } from 'react-router-dom';
 
 const CartPage = () => {
-  const cartItems = demoCartItems;
-
-  const subtotal = cartItems
-    .reduce((acc, item) => {
-      const discounted = item.price - (item.price * item.discountPercentage) / 100;
-      return acc + discounted * item.quantity;
-    }, 0)
-    .toFixed(2);
-
-  const totalItems = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+  const dispatch = useDispatch();
+  const cartItems = useSelector(selectCartItems);
+  const subtotal = useSelector(selectCartTotal);
+  const totalItems = useSelector(selectTotalQuantity);
 
   const shippingFee = subtotal > 50 ? 0 : 4.99;
   const grandTotal = (parseFloat(subtotal) + shippingFee).toFixed(2);
@@ -59,15 +25,15 @@ const CartPage = () => {
             </span>
           </h1>
 
-          <a
-            href="/"
+          <Link
+            to="/"
             className="text-sm text-emerald-600 hover:text-emerald-700 font-medium flex items-center gap-1 transition"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
             Continue Shopping
-          </a>
+          </Link>
         </div>
 
         {cartItems.length === 0 ? (
@@ -82,12 +48,12 @@ const CartPage = () => {
             <p className="text-sm text-gray-400 max-w-xs">
               Looks like you haven't added anything yet. Go explore products!
             </p>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="mt-2 px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition"
             >
               Shop Now
-            </a>
+            </Link>
           </div>
 
         ) : (
@@ -128,15 +94,14 @@ const CartPage = () => {
                   </div>
                 </div>
 
-                <a
-                  href="/checkout"
+                <button
                   className="mt-5 w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-emerald-100"
                 >
                   Proceed to Checkout
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
-                </a>
+                </button>
 
                 <div className="flex items-center justify-center gap-3 mt-4">
                   {["Visa", "MC", "UPI", "COD"].map((method) => (
@@ -148,6 +113,13 @@ const CartPage = () => {
                     </span>
                   ))}
                 </div>
+
+                <button
+                  onClick={() => dispatch(clearCart())}
+                  className="mt-4 w-full text-sm text-rose-500 hover:text-rose-600 font-medium transition"
+                >
+                  Clear Cart
+                </button>
               </div>
             </div>
 

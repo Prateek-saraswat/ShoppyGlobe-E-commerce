@@ -2,9 +2,12 @@
 
 import useFetchProducts from "../hooks/useFetchProduct";
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
 
   // Fetch single product using custom hook
   const { data: product, loading } = useFetchProducts(
@@ -18,6 +21,10 @@ const ProductDetails = () => {
       </div>
     );
   }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product));
+  };
 
 
   return (
@@ -56,7 +63,9 @@ const ProductDetails = () => {
 
             {/* Price */}
             <div className="flex items-end gap-3 mt-1">
-              <span className="text-sm text-red-400 mb-0.5">${product.price}</span>
+              <span className="text-2xl font-black text-gray-900">${(product.price - (product.price * product.discountPercentage) / 100).toFixed(2)}</span>
+              <span className="text-sm text-gray-400 line-through mb-0.5">${product.price}</span>
+              <span className="text-xs text-rose-500 font-semibold mb-0.5">-{product.discountPercentage.toFixed(0)}%</span>
             </div>
 
             {/* Simple info rows */}
@@ -70,7 +79,10 @@ const ProductDetails = () => {
             </div>
 
             {/* Add to Cart button */}
-            <button className="mt-2 w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-emerald-100">
+            <button 
+              onClick={handleAddToCart}
+              className="mt-2 w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white font-semibold py-3 rounded-xl transition-all shadow-md shadow-emerald-100"
+            >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2.2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
               </svg>

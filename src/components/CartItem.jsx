@@ -1,11 +1,28 @@
-
+import { useDispatch } from 'react-redux';
+import { removeFromCart, increaseQuantity, decreaseQuantity } from '../redux/cartSlice';
 
 const CartItem = ({ item }) => {
+  const dispatch = useDispatch();
+
   const discountedPrice = (
     item.price - (item.price * item.discountPercentage) / 100
   ).toFixed(2);
 
   const itemTotal = (discountedPrice * item.quantity).toFixed(2);
+
+  const handleIncrease = () => {
+    dispatch(increaseQuantity(item.id));
+  };
+
+  const handleDecrease = () => {
+    if (item.quantity > 1) {
+      dispatch(decreaseQuantity(item.id));
+    }
+  };
+
+  const handleRemove = () => {
+    dispatch(removeFromCart(item.id));
+  };
 
   return (
     <div className="flex items-center gap-4 bg-white border border-gray-100 rounded-2xl p-4 shadow-sm">
@@ -33,6 +50,7 @@ const CartItem = ({ item }) => {
 
       <div className="flex items-center gap-2 flex-shrink-0">
         <button
+          onClick={handleDecrease}
           className="w-7 h-7 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 hover:text-gray-800 flex items-center justify-center transition text-lg font-bold"
         >
           −
@@ -43,6 +61,7 @@ const CartItem = ({ item }) => {
         </span>
 
         <button
+          onClick={handleIncrease}
           className="w-7 h-7 rounded-lg border border-gray-200 text-gray-500 hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-200 flex items-center justify-center transition text-lg font-bold"
         >
           +
@@ -55,6 +74,7 @@ const CartItem = ({ item }) => {
       </div>
 
       <button
+        onClick={handleRemove}
         className="flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-xl text-gray-400 hover:text-rose-500 hover:bg-rose-50 transition"
         title="Remove item"
       >

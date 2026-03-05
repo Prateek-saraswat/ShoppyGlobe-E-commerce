@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 const ProductItem = ({product}) => {
   
 
- console.log(product)
+//  console.log(product)
 
 
   return (
