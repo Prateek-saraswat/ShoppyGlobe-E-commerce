@@ -2,18 +2,18 @@
 import ProductItem from "./ProductItem";
 import useFetchProducts from "../hooks/useFetchProduct";
 
-
-
 const ProductList = () => {
+  const { data: products, loading } = useFetchProducts("https://dummyjson.com/products");
 
+  if (loading || !products) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-gray-400 text-sm">Loading products...</p>
+      </div>
+    );
+  }
 
-
-        const products = useFetchProducts("https://dummyjson.com/products")
-        console.log(products)
-    
   const searchQuery = "";
-
-
 
   const filteredProducts = products.filter((p) =>
     p.title.toLowerCase().includes(searchQuery.toLowerCase())
