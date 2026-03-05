@@ -1,12 +1,20 @@
-import {useEffect , useState} from "react"
+import { useEffect, useState } from "react";
 
-function useFetchProducts(URL){
+export default function useFetchProducts(URL) {
+  const [products, setProducts] = useState([]);
 
-    const [products , setProducts] = useState([])
+  useEffect(() => {
 
+    async function fetchProduct() {
+      const response = await fetch(URL);
+      const {products} = await response.json();
+      setProducts(products)
+    }
+
+     fetchProduct()
     
-    useEffect(()=>{
 
-    })
+  }, [URL]);
 
+  return products;
 }
