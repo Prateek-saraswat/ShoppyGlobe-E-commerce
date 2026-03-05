@@ -4,11 +4,8 @@ import { removeFromCart, increaseQuantity, decreaseQuantity } from '../redux/car
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
 
-  const discountedPrice = (
-    item.price - (item.price * item.discountPercentage) / 100
-  ).toFixed(2);
-
-  const itemTotal = (discountedPrice * item.quantity).toFixed(2);
+  // Use original item price (not discounted price)
+  const itemTotal = (item.price * item.quantity).toFixed(2);
 
   const handleIncrease = () => {
     dispatch(increaseQuantity(item.id));
