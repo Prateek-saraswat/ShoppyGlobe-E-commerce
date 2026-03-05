@@ -3,7 +3,7 @@ import ProductItem from "./ProductItem";
 import useFetchProducts from "../hooks/useFetchProduct";
 
 const ProductList = () => {
-  const { data: products, loading } = useFetchProducts("https://dummyjson.com/products");
+  const { data: products, loading } = useFetchProducts("https://dummyjson.com/products?limit=100");
 
   if (loading || !products) {
     return (

@@ -9,9 +9,8 @@ export const selectTotalQuantity = (state) =>
 export const selectCartTotal = (state) =>
   state.cart.cartItems
     .reduce((total, item) => {
-      const discountedPrice =
-        item.price - (item.price * item.discountPercentage) / 100;
-      return total + discountedPrice * item.quantity;
+      
+      return total + item.price * item.quantity;
     }, 0)
     .toFixed(2);
 

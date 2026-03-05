@@ -7,6 +7,7 @@ import ProductList from './components/ProductsList.jsx'
 import NotFound from './pages/NotFound.jsx'
 import ProductDetails from './pages/ProductDetails.jsx'
 import CartPage from './pages/CartPage.jsx'
+import CheckoutPage from './pages/CheckoutPage.jsx'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 
@@ -29,6 +30,11 @@ const appRouter = createBrowserRouter([
       {
         path:'/cart',
         element: <CartPage />
+
+      },
+      {
+        path:'/checkout',
+        element: <CheckoutPage />
 
       }
     ]

@@ -75,22 +75,12 @@ const CartPage = () => {
                     <span className="font-semibold text-gray-800">${subtotal}</span>
                   </div>
 
-                  <div className="flex justify-between text-gray-600">
-                    <span>Shipping</span>
-                    <span className={`font-semibold ${shippingFee === 0 ? "text-emerald-600" : "text-gray-800"}`}>
-                      {shippingFee === 0 ? "FREE" : `$${shippingFee}`}
-                    </span>
-                  </div>
 
-                  {shippingFee > 0 && (
-                    <p className="text-xs text-gray-400 -mt-1">
-                      Add ${(50 - parseFloat(subtotal)).toFixed(2)} more for free shipping
-                    </p>
-                  )}
+                  
 
                   <div className="border-t border-gray-100 pt-3 flex justify-between">
                     <span className="font-bold text-gray-900">Grand Total</span>
-                    <span className="font-black text-gray-900 text-base">${grandTotal}</span>
+                    <span className="font-black text-gray-900 text-base">${subtotal}</span>
                   </div>
                 </div>
 
@@ -103,16 +93,7 @@ const CartPage = () => {
                   </svg>
                 </button>
 
-                <div className="flex items-center justify-center gap-3 mt-4">
-                  {["Visa", "MC", "UPI", "COD"].map((method) => (
-                    <span
-                      key={method}
-                      className="text-[10px] font-semibold text-gray-400 border border-gray-200 px-2 py-0.5 rounded"
-                    >
-                      {method}
-                    </span>
-                  ))}
-                </div>
+               
 
                 <button
                   onClick={() => dispatch(clearCart())}

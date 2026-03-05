@@ -42,9 +42,7 @@ const CartItem = ({ item }) => {
         <h3 className="text-sm font-bold text-gray-800 truncate">{item.title}</h3>
 
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-sm font-bold text-gray-900">${discountedPrice}</span>
-          <span className="text-xs text-gray-400 line-through">${item.price}</span>
-          <span className="text-xs text-rose-500 font-medium">-{item.discountPercentage}%</span>
+          <span className="text-xs text-gray-400 ">${item.price}</span>
         </div>
       </div>
 

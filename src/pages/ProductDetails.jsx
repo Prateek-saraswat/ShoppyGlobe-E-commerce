@@ -63,9 +63,7 @@ const ProductDetails = () => {
 
             {/* Price */}
             <div className="flex items-end gap-3 mt-1">
-              <span className="text-2xl font-black text-gray-900">${(product.price - (product.price * product.discountPercentage) / 100).toFixed(2)}</span>
-              <span className="text-sm text-gray-400 line-through mb-0.5">${product.price}</span>
-              <span className="text-xs text-rose-500 font-semibold mb-0.5">-{product.discountPercentage.toFixed(0)}%</span>
+              <span className="text-sm text-gray-400  mb-0.5">${product.price}</span>
             </div>
 
             {/* Simple info rows */}
