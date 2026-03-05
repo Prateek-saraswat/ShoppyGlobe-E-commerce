@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 import { selectSearchQuery } from "../redux/Selectors";
 
 const ProductList = () => {
+  //fetching 100 products from api , somethime can give cors error reload it will fix
   const { data: products, loading, error } = useFetchProducts("https://dummyjson.com/products?limit=100");
+  //state for search string
   const searchQuery = useSelector(selectSearchQuery);
 
   if (loading) {
@@ -17,6 +19,7 @@ const ProductList = () => {
   }
 
   if (error) {
+    //if fetching failed for products show this div 
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
         <div className="w-20 h-20 rounded-full bg-rose-100 flex items-center justify-center">
@@ -36,6 +39,8 @@ const ProductList = () => {
     );
   }
 
+
+  //if no producs have been fetch shoe this product
   if (!products) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
