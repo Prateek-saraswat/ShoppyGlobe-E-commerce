@@ -6,10 +6,12 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 
 const ProductDetails = () => {
+
+  //destructuring id from useParams
   const { id } = useParams();
   const dispatch = useDispatch();
 
-  // Fetch single product using custom hook
+  // Fetch single product using custom hook and takifn id from params
   const { data: product, loading, error } = useFetchProducts(
     `https://dummyjson.com/products/${id}`
   );
@@ -22,6 +24,7 @@ const ProductDetails = () => {
     );
   }
 
+  //conditional rendering 
   if (error) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
