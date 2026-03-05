@@ -1,33 +1,16 @@
 
 
-const ProductItem = () => {
-  const product = {
-    id: 1,
-    title: "Essence Mascara Lash Princess",
-    description:
-      "Popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
-    category: "beauty",
-    price: 9.99,
-    discountPercentage: 10.48,
-    rating: 2.56,
-    stock: 99,
-    brand: "Essence",
-    availabilityStatus: "In Stock",
-    shippingInformation: "Ships in 3-5 business days",
-    thumbnail:
-      "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
-  };
+const ProductItem = ({product}) => {
+  
 
  
 
-  const filledStars = Math.round(product.rating);
   // ────────────────────────────────────────────────────────────────────
 
   return (
     <div className="w-72 rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
 
       <div className="relative bg-gray-50 h-52 flex items-center justify-center p-4">
-        {/* Discount badge */}
        
 
         
@@ -62,10 +45,7 @@ const ProductItem = () => {
 
         {/* Price row */}
         <div className="flex items-end gap-2">
-          <span className="text-xl font-extrabold text-gray-900">
-            ${discountedPrice}
-          </span>
-          <span className="text-sm text-gray-400 line-through mb-0.5">
+          <span className="text-sm text-gray-400  mb-0.5">
             ${product.price}
           </span>
         </div>

@@ -3,12 +3,19 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import {createBrowserRouter , RouterProvider} from "react-router-dom"
+import ProductList from './components/ProductsList.jsx'
 
 const appRouter = createBrowserRouter([
 
   {
     path: "/",
-    element:<App />
+    element:<App />,
+    children:[
+      {
+        path: '/',
+        element: <ProductList />
+      }
+    ]
   }
 ])
 

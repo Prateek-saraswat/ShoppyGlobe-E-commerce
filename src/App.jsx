@@ -1,14 +1,16 @@
+import { useState } from "react"
 import Header from "./components/Header.jsx"
 import useFetchProducts from "./hooks/useFetchProduct.js"
+import { Outlet } from "react-router-dom"
 
 function App() {
 
-  const response = useFetchProducts("https://dummyjson.com/products")
-  console.log(response)
+  
 
   return (
     <>
     <Header />
+    <Outlet />
     </>
   )
 }
